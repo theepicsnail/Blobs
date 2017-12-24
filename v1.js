@@ -167,6 +167,10 @@ class Board {
 	}
 
 	onclick(evt) {
+		if(this.animating.length > 0 || this.newAnimations.length > 0) {
+			console.log("ignoring click while animations are playing");
+			return;
+		}
 		const col = Math.floor(evt.x / CELL_SIZE);
 		const row = Math.floor(evt.y / CELL_SIZE);
 		if(row >= this.size) {
