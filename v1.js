@@ -29,15 +29,16 @@ class Board {
 		this.canvas.style.height = (this.canvas.height = window.innerHeight) + "px";
 		document.body.appendChild(this.canvas);
 		this.resetBoard();
-		this.ammo = {};
-		this.selected = COLORS[0];
-		COLORS.forEach((c)=>{this.ammo[c]=2});
 
 		this.animating = [];
 		this.newAnimations = [];
 		this.update();
 	}
 	resetBoard() {
+		this.ammo = {};
+		this.selected = COLORS[0];
+		COLORS.forEach((c)=>{this.ammo[c]=2});
+
 		let totals = this.size * this.size * 2/COLORS.length;
 
 		this.pieces = array2d(this.size, ()=>{
@@ -125,7 +126,7 @@ class Board {
 		this.newAnimations = [];
 
 		if(Object.keys(colorsOnBoard).length != COLORS.length && this.animating.length == 0) {
-			
+			document.getElementById("winScreen").style.display="block";
 			this.resetBoard();
 		}
 
