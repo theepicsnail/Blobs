@@ -166,13 +166,30 @@ class Board {
 		return true;
 	}
 
-	onclick(evt) {
+	onclick(e) {
 		if(this.animating.length > 0 || this.newAnimations.length > 0) {
 			console.log("ignoring click while animations are playing");
 			return;
 		}
-		const col = Math.floor(evt.x / CELL_SIZE);
-		const row = Math.floor(evt.y / CELL_SIZE);
+
+
+		var x;
+		var y;
+		if (e.pageX || e.pageY) { 
+		  x = e.pageX;
+		  y = e.pageY;
+		}
+		else { 
+		  x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft; 
+		  y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop; 
+		} 
+		x -= this.canvas.offsetLeft;
+		y -= this.canvas.offsetTop;
+
+		console.log(x,y);
+
+		const col = Math.floor(x / CELL_SIZE);
+		const row = Math.floor(y / CELL_SIZE);
 		if(row >= this.size) {
 			this.selected = COLORS[col];
 			return;
